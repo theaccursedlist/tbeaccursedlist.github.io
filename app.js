@@ -120,13 +120,18 @@ function showSubroute(sub){
 async function onLogin(e){
   e.preventDefault();
   const f = new FormData(e.currentTarget);
-  const username = (f.get('username')||'').toString().trim();
-  const password = (f.get('password')||'').toString();
-  const input = (f.get('username')||'').toString().trim();
+  const input = (f.get('username') || '').toString().trim();
+  const password = (f.get('password') || '').toString();
+
   const emailAlias = input.includes('@') ? input : `${input}@${ALIAS_DOMAIN}`;
-  qs('#loginError').textContent = '';
+  const uiError = document.getElementById('loginError');
+  uiError.textContent = '';
+
   const { error } = await supabase.auth.signInWithPassword({ email: emailAlias, password });
-  if (error) qs('#loginError').textContent = 'Invalid credentials.';
+  if (error) {
+    console.error('Login failed:', error);     // check DevTools > Console
+    uiError.textContent = error.message;       // shows the real cause, e.g. “Email not confirmed”
+  }
 }
 
 async function onLogout(){ await supabase.auth.signOut(); location.hash = '#/start'; }
