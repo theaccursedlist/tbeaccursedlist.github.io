@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Accursed List of The Order</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="bg-gradient"></div>
+
+  <!-- ROUTER VIEWS -->
+  <main id="router">
+    <!-- START -->
+    <section data-route="start" class="route route-center">
+      <div class="card card-glass start-card">
+        <h1 class="brand">The Accursed List of <span>The Order</span></h1>
+        <p class="muted">Enter only if permitted by The Order.</p>
+        <div class="row gap">
+          <button class="btn btn-primary" data-nav="#/login">Log in</button>
+          <button class="btn btn-ghost" data-nav="#/submit">Submit a name</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGIN -->
+    <section data-route="login" class="route route-center">
+      <form id="loginForm" class="card card-glass form">
+        <h2>Log in</h2>
+        <p class="muted small">Your account is provisioned by the site owner.</p>
+        <label>Username
+          <input name="username" placeholder="e.g., ravenmaster" autocomplete="username" required />
+        </label>
+        <label>Password
+          <input name="password" type="password" placeholder="••••••••" autocomplete="current-password" required />
+        </label>
+        <button class="btn btn-primary" type="submit">Enter</button>
+        <button class="btn btn-text" type="button" data-nav="#/start">Cancel</button>
+        <p id="loginError" class="error" role="alert" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- PUBLIC SUBMISSION PAGE -->
+    <section data-route="submit" class="route route-center">
+      <form id="submitForm" class="card card-glass form">
+        <h2>Submit to The Accursed</h2>
+        <p class="muted small">Provide the <strong>Roblox profile image URL</strong>, the <strong>username (not display name)</strong>, and a concise reason.</p>
+        <label>Roblox profile picture URL
+          <input name="avatar_url" placeholder="https://tr.rbxcdn.com/....png" inputmode="url" required />
+        </label>
+        <label>Username (not display name)
+          <input name="target_username" placeholder="ExactUsername123" required />
+        </label>
+        <label>Reason
+          <textarea name="reason" rows="4" maxlength="400" placeholder="Explain in one or two lines" required></textarea>
+        </label>
+        <div class="row gap">
+          <button class="btn btn-ghost" type="button" id="cancelSubmit">Cancel</button>
+          <button class="btn btn-primary" type="submit">Send submission</button>
+        </div>
+        <p id="submitMsg" class="muted small" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- APP SHELL (AUTH REQUIRED) -->
+    <section data-route="app" class="route">
+      <aside class="sidebar">
+        <div class="brand-mini">The Order</div>
+        <nav>
+          <a data-nav="#/list" class="nav-link active">List</a>
+          <a data-nav="#/account" class="nav-link">Account</a>
+          <a data-nav="#/dashboard" class="nav-link admin-only">Dashboard</a>
+        </nav>
+        <div class="spacer"></div>
+        <button id="logoutBtn" class="btn btn-ghost">Log out</button>
+      </aside>
+
+      <section class="content">
+        <!-- LIST -->
+        <div data-subroute="list" class="panel show">
+          <div id="gridHost">
+            <div id="grid"></div>
+            <div id="tooltip" class="tooltip" hidden>
+              <div class="tooltip-card">
+                <img id="ttAvatar" alt="avatar" />
+                <div class="tt-body">
+                  <div id="ttName" class="tt-name"></div>
+                  <div id="ttReason" class="tt-reason"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACCOUNT -->
+        <div data-subroute="account" class="panel">
+          <div class="card card-glass account">
+            <img id="acctAvatar" class="acct-avatar" alt="Your avatar" />
+            <div>
+              <div class="acct-username" id="acctUsername"></div>
+              <div class="acct-title" id="acctTitle"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DASHBOARD (ADMIN) -->
+        <div data-subroute="dashboard" class="panel">
+          <h2>Submissions</h2>
+          <div id="queue" class="queue"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
