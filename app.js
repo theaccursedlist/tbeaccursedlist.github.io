@@ -6,6 +6,8 @@ const ALIAS_DOMAIN = 'accursed.list'; // <-- match exactly what you used in Supa
 // —————— REQUIRED: paste your Supabase project values ——————
 const SUPABASE_URL = 'https://jkwbbsdfeqqylqfsnhih.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imprd2Jic2RmZXFxeWxxZnNuaGloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxNTA0MDcsImV4cCI6MjA3MDcyNjQwN30.o9G0Rq7mpygC2-P4vldWbl4WsCTttYhNmlRs1dAHTLk';
+console.log('Supabase URL:', SUPABASE_URL);
+console.log('Supabase Key:', `${SUPABASE_ANON_KEY.slice(0, 4)}...${SUPABASE_ANON_KEY.slice(-4)}`);
 // Sessions not persisted (forces login every visit)
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: { persistSession: false, autoRefreshToken: false }
